@@ -100,17 +100,18 @@ def get_common_elements(old: List[str], new: List[str]) -> Set[str]:
     return set(new) & set(old)
 
 
-def schema_diff(schema1: GraphQLSchema, schema2: GraphQLSchema):
+def schema_diff(schema1: GraphQLSchema, schema2: GraphQLSchema) -> SchemaDiff:
     old_schema = Schema(schema1)
     new_schema = Schema(schema2)
-    diff = SchemaDiff(old_schema, new_schema)
+
+    return SchemaDiff(old_schema, new_schema)
+
+
+if __name__ == '__main__':
+    diff = schema_diff(schemaOne, schemaTwo)
 
     print('New types: ' + str(diff.new_types))
     print('Removed types: ' + str(diff.removed_types))
     print('New columns: ' + str(diff.new_columns))
     print('Removed columns: ' + str(diff.removed_columns))
     print('Changed columns: ' + str(diff.changed_columns))
-
-
-if __name__ == '__main__':
-    schema_diff(schemaOne, schemaTwo)
